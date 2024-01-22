@@ -39,9 +39,10 @@ public class TimezoneValidateFilter implements Filter {
 
     private static boolean isValidTimezone(String timezone) {
         if (timezone != null) {
-            Matcher matcher = Pattern.compile("^UTC\\s([1-9]|1[0-2])$").matcher(timezone);
+            Matcher matcher = Pattern.compile("^UTC\\+([1-9]|1[0-2])$").matcher(timezone);
             Matcher matcher_ = Pattern.compile("^UTC-([1-9]|1[0-2])$").matcher(timezone);
-            return matcher.matches() || matcher_.matches();
+            Matcher matcher__ = Pattern.compile("^UTC%2B([1-9]|1[0-2])$").matcher(timezone);
+            return matcher.find() || matcher_.find() || matcher__.find();
         }
         return true;
     }

@@ -27,11 +27,11 @@ public class TimeServlet extends HttpServlet {
         if (timezoneParam != null && !timezoneParam.isEmpty()) {
             timeZone = TimeZone.getTimeZone(timezoneParam);
         } else {
-            timeZone = TimeZone.getTimeZone("UTC");
+            timeZone = TimeZone.getTimeZone("GMT");
         }
 
         if (timeZone == null) {
-            timeZone = TimeZone.getTimeZone("UTC");
+            timeZone = TimeZone.getTimeZone("GMT");
         }
 
         Date currentDate = new Date();
