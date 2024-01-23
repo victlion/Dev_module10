@@ -5,6 +5,9 @@ import java.io.PrintWriter;
 
 import java.text.SimpleDateFormat;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -22,29 +25,25 @@ public class TimeServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String timezoneParam = request.getParameter("timezone");
-        TimeZone timeZone;
 
-        if (timezoneParam != null && !timezoneParam.isEmpty()) {
-            timeZone = TimeZone.getTimeZone(timezoneParam);
-        } else {
-            timeZone = TimeZone.getTimeZone("GMT");
+        Instant instant = Instant.now();
+        ZoneId customTimeZone;
+        try {
+            customTimeZone = ZoneId.of(timezoneParam);
+        } catch (NullPointerException e) {
+            customTimeZone = ZoneId.of("UTC");
         }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z")
+                .withZone(customTimeZone);
 
-        if (timeZone == null) {
-            timeZone = TimeZone.getTimeZone("GMT");
-        }
-
-        Date currentDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
-        dateFormat.setTimeZone(timeZone);
-        String currentTimeWithTimeZone = dateFormat.format(currentDate);
+        String formattedTime = formatter.format(instant);
 
         PrintWriter out = response.getWriter();
         out.println("<html>");
         out.println("<head><title>Current Time</title></head>");
         out.println("<body>");
         out.println("<center><h1>Current Time</h1></center>");
-        out.println("<center><p>Time: " + currentTimeWithTimeZone + "</p></center>");
+        out.println("<center><p>Time: " + formattedTime + "</p></center>");
         out.println("</body>");
         out.println("</html>");
     }

@@ -12,10 +12,10 @@
     <input type="button" onclick="location.href='/Dev_module10/time';" value="/TIME"/>
     <br>
     <br>
-    <input type="button" onclick="location.href='/Dev_module10/time?timezone=UTC+2';" value="/UTC+2"/>
+    <input type="button" onclick="location.href='/Dev_module10/time?timezone=UTC%2B2';" value="/UTC+2"/>
     <br>
     <br>
-    <input type="button" onclick="location.href='/Dev_module10/time?timezone=UTC+20';" value="/UTC+20(code 400)"/>
+    <input type="button" onclick="location.href='/Dev_module10/time?timezone=UTC%2B20';" value="/UTC+20(code 400)"/>
 </div>
 </body>
 </html>
